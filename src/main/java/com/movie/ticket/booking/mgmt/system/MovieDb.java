@@ -9,7 +9,7 @@ public class MovieDb {
         try{
             Class.forName("org.postgresql.Driver");
 
-            Connection connect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/movie_ticket_;book_db","postgres","1234");
+            Connection connect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/movie_ticket_book_db","postgres","1234");
 
             return connect;
 
