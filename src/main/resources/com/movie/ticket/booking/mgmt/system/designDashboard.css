@@ -207,3 +207,46 @@
   -fx-font-size:14px;
 }
 
+.spinner{
+  -fx-background-color:#fff;
+  -fx-border-color:#000;
+  -fx-border-width:.5px;
+}
+
+.buy-btn{
+  -fx-background-color:#2d7778;
+  -fx-text-fill:#fff;
+  -fx-font-size:14px;
+  -fx-background-radius:8px;
+  -fx-cursor:hand;
+}
+
+.buy-btn:hover{
+  -fx-background-color:#3babb5;
+}
+
+.receipt-btn{
+  -fx-background-color:#937729;
+  -fx-text-fill:#fff;
+  -fx-font-size:14px;
+  -fx-background-radius:8px;
+  -fx-cursor:hand;
+}
+
+.receipt-btn:hover{
+  -fx-background-color:#d39940;
+}
+
+.combo-box{
+  -fx-background-color:#fff;
+  -fx-background-radius:5px;
+  -fx-border-color:#1e242e;
+  -fx-border-width:.5px;
+  -fx-border-radius:5px;
+}
+
+.combo-box:focused{
+  -fx-border-color:#ae2d3c;
+  -fx-border-width:1px;
+}
+
