@@ -8,6 +8,6 @@ module com.moviemanagementsystem.moviemanagementsystem {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.movie.ticket.booking.mgmt.system to javafx.fxml;
-    exports com.movie.ticket.booking.mgmt.system;
+    opens com.movie_ticket.booking.mgmt to javafx.fxml;
+    exports com.movie_ticket.booking.mgmt;
 }

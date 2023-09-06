@@ -34,9 +34,7 @@
   -fx-alignment:CENTER_LEFT;
 }
 
-.nav-btn:hover{
-  -fx-background-color:#ae2d3c;
-}
+
 
 .sign-out{
    -fx-background-color:#ae2d3c;

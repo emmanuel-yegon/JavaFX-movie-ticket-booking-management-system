@@ -1,4 +1,4 @@
-package com.movie.ticket.booking.mgmt.system;
+package com.movie_ticket.booking.mgmt;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
