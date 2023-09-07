@@ -289,6 +289,26 @@ public class DashboardController implements Initializable {
         }
     }
 
+    public void movieId(){
+
+        String sql  = "SELECT count(id) FROM movie";
+
+        connect = MovieDb.connectDb();
+
+        try{
+
+            prepare = connect.prepareStatement(sql);
+            rs = prepare.executeQuery();
+
+            if(rs.next()){
+                GetData.movieId = rs.getInt("count(id)");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void insertAddMovies(){
 
         String sql1 = "SELECT * FROM movie WHERE movieTitle = '"+addMovies_movieTitle.getText()+"'";
@@ -326,6 +346,7 @@ public class DashboardController implements Initializable {
 
                     String uri = GetData.path;
                     uri = uri.replace("\\","\\\\");
+
 
                     prepare = connect.prepareStatement(sql);
                     prepare.setString(1, addMovies_movieTitle.getText());
@@ -367,7 +388,8 @@ public class DashboardController implements Initializable {
             MoviesData moviesData;
 
             while (rs.next()){
-                moviesData = new MoviesData(rs.getString("movieTitle")
+                moviesData = new MoviesData(rs.getInt("id")
+                        ,rs.getString("movieTitle")
                         ,rs.getString("genre")
                         ,rs.getString("duration")
                         ,rs.getString("image")
@@ -384,6 +406,59 @@ public class DashboardController implements Initializable {
         return listData;
     }
 
+    public  void updateAddMovies(){
+
+        String uri = GetData.path;
+        uri = uri.replace("\\","\\\\");
+
+
+        String sql = "UPDATE movie SET movieTitle='"+ addMovies_movieTitle.getText()
+                +"', genre='"+addMovies_genre.getText()
+                +"', duration='"+addMovies_duration.getText()
+                +"', image='"+ uri
+                +"', date = '"+addMovies_date.getValue()+"'  WHERE id='"+String.valueOf(GetData.movieId)+"'";
+
+        connect = MovieDb.connectDb();
+
+        try {
+
+            statement = connect.createStatement();
+
+            Alert alert;
+
+            if(addMovies_movieTitle.getText().isEmpty()
+                    || addMovies_genre.getText().isEmpty()
+                    || addMovies_duration.getText().isEmpty()
+                    || addMovies_imageView.getImage()==null
+                    || addMovies_date.getValue()==null){
+
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select the movie first!");
+                alert.showAndWait();
+
+
+            }else {
+
+                statement.executeUpdate(sql);
+
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Successfully Updated"+addMovies_movieTitle.getText());
+                alert.showAndWait();
+
+                clearAddMoviesList();
+                showAddMoviesList();
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     public void clearAddMoviesList(){
 
         addMovies_movieTitle.setText("");
@@ -391,7 +466,6 @@ public class DashboardController implements Initializable {
         addMovies_duration.setText("");
         addMovies_imageView.setImage(null);
         addMovies_date.setValue(null);
-
 
     }
 
@@ -417,6 +491,10 @@ public class DashboardController implements Initializable {
             return;
         }
 
+        GetData.path = moviesData.getImage();
+
+        GetData.movieId = moviesData.getId();
+
         addMovies_movieTitle.setText(moviesData.getMovieTitle());
         addMovies_genre.setText(moviesData.getGenre());
         addMovies_duration.setText(moviesData.getDuration());
@@ -428,6 +506,7 @@ public class DashboardController implements Initializable {
         image = new Image(uri, 130,160,false,true);
         addMovies_imageView.setImage(image);
 
+        addMovies_date.setValue(moviesData.getDate().toLocalDate());
 
     }
 
