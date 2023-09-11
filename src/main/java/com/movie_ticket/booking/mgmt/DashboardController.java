@@ -24,6 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -457,6 +458,61 @@ public class DashboardController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    public void deleteAddMovies(){
+
+        String sql ="DELETE FROM movie WHERE movieTitle='"+addMovies_movieTitle.getText()+"'";
+
+        connect = MovieDb.connectDb();
+
+        try{
+
+            statement = connect.createStatement();
+
+            Alert alert;
+
+            if(addMovies_movieTitle.getText().isEmpty()
+                    || addMovies_genre.getText().isEmpty()
+                    || addMovies_duration.getText().isEmpty()
+                    || addMovies_date.getValue() == null
+                    || addMovies_imageView.getImage() == null){
+
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select the movie first!");
+                alert.showAndWait();
+
+            } else {
+
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to delete "+addMovies_movieTitle.getText());
+
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if(ButtonType.OK.equals(option.get())){
+
+                    statement.executeUpdate(sql);
+
+                    showAddMoviesList();
+                    clearAddMoviesList();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully deleted movie");
+
+                }else {
+                    return;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void clearAddMoviesList(){

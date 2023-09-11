@@ -207,7 +207,7 @@
                                         <Label layoutX="12.0" layoutY="354.0" text="Published Date:" AnchorPane.leftAnchor="17.0" />
                                         <Button fx:id="addMovies_insertBtn" layoutX="15.0" layoutY="414.0" mnemonicParsing="false" onAction="#insertAddMovies" prefHeight="30.0" prefWidth="60.0" styleClass="insert-btn" stylesheets="@designDashboard.css" text="Insert" />
                                         <Button fx:id="addMovies_updateBtn" layoutX="161.0" layoutY="414.0" mnemonicParsing="false" onAction="#updateAddMovies" prefHeight="30.0" prefWidth="65.0" styleClass="update-btn" stylesheets="@designDashboard.css" text="Update" AnchorPane.rightAnchor="80.0" />
-                                        <Button fx:id="addMovies_deleteBtn" layoutX="240.0" layoutY="414.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="delete-btn" stylesheets="@designDashboard.css" text="Delete" />
+                                        <Button fx:id="addMovies_deleteBtn" layoutX="240.0" layoutY="414.0" mnemonicParsing="false" onAction="#deleteAddMovies" prefHeight="30.0" prefWidth="60.0" styleClass="delete-btn" stylesheets="@designDashboard.css" text="Delete" />
                                         <Button fx:id="addMovies_clearBtn" layoutX="83.0" layoutY="414.0" mnemonicParsing="false" onAction="#clearAddMoviesList" prefHeight="30.0" prefWidth="60.0" styleClass="clear-btn" stylesheets="@designDashboard.css" text="Clear" />
                               <DatePicker fx:id="addMovies_date" layoutX="106.0" layoutY="350.0" prefHeight="29.0" prefWidth="200.0" promptText="MM-DD-YYYY" styleClass="combo-box" stylesheets="@designDashboard.css" />
                                     </children>
