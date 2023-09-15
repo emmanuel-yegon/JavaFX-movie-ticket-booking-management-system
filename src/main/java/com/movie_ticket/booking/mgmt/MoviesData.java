@@ -10,8 +10,8 @@ public class MoviesData {
     private String duration;
     private String image;
     private Date date;
-
-    public MoviesData(Integer id, String movieTitle, String genre, String duration, String image, Date date) {
+    private String current;
+    public MoviesData(Integer id, String movieTitle, String genre, String duration, String image, Date date,String current) {
 
         this.id = id;
         this.movieTitle = movieTitle;
@@ -19,6 +19,7 @@ public class MoviesData {
         this.duration = duration;
         this.image = image;
         this.date = date;
+        this.current = current;
     }
 
     public Integer getId() {
@@ -43,5 +44,9 @@ public class MoviesData {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getCurrent() {
+        return current;
     }
 }
