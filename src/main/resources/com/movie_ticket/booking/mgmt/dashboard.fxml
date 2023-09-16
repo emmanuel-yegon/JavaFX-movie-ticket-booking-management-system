@@ -239,7 +239,7 @@
                                                         <Font name="Microsoft Sans Serif" size="14.0" />
                                                     </font>
                                                 </Label>
-                                                <Label fx:id="availableMovies_movieTitle" layoutX="95.0" layoutY="10.0" prefHeight="25.0" prefWidth="155.0" styleClass="label-info" stylesheets="@designDashboard.css" text="Movie Title:">
+                                                <Label fx:id="availableMovies_movieTitle" layoutX="95.0" layoutY="10.0" prefHeight="25.0" prefWidth="155.0" styleClass="label-info" stylesheets="@designDashboard.css">
                                                     <font>
                                                         <Font name="Microsoft Sans Serif" size="14.0" />
                                                     </font>
@@ -249,7 +249,7 @@
                                                         <Font name="Microsoft Sans Serif" size="14.0" />
                                                     </font>
                                                 </Label>
-                                                <Label fx:id="availableMovies_genre" layoutX="95.0" layoutY="51.0" prefHeight="25.0" prefWidth="155.0" styleClass="label-info" stylesheets="@designDashboard.css" text="Movie Title:">
+                                                <Label fx:id="availableMovies_genre" layoutX="95.0" layoutY="51.0" prefHeight="25.0" prefWidth="155.0" styleClass="label-info" stylesheets="@designDashboard.css">
                                                     <font>
                                                         <Font name="Microsoft Sans Serif" size="14.0" />
                                                     </font>
@@ -259,19 +259,19 @@
                                                         <Font name="Microsoft Sans Serif" size="14.0" />
                                                     </font>
                                                 </Label>
-                                                <Label fx:id="availableMovies_date" layoutX="95.0" layoutY="92.0" prefHeight="25.0" prefWidth="155.0" styleClass="label-info" stylesheets="@designDashboard.css" text="Movie Title:">
+                                                <Label fx:id="availableMovies_date" layoutX="95.0" layoutY="92.0" prefHeight="25.0" prefWidth="155.0" styleClass="label-info" stylesheets="@designDashboard.css">
                                                     <font>
                                                         <Font name="Microsoft Sans Serif" size="14.0" />
                                                     </font>
                                                 </Label>
-                                                <Button fx:id="availableMovies_selectMovie" layoutX="95.0" layoutY="148.0" mnemonicParsing="false" styleClass="insert-btn" stylesheets="@designDashboard.css" text="Select Movie" />
+                                                <Button fx:id="availableMovies_selectMovie" layoutX="95.0" layoutY="148.0" mnemonicParsing="false" onAction="#selectMovie" styleClass="insert-btn" stylesheets="@designDashboard.css" text="Select Movie" />
                                             </children>
                                         </AnchorPane>
-                                        <TableView fx:id="availableMovies_tableView" layoutX="272.0" prefHeight="213.0" prefWidth="599.0" AnchorPane.topAnchor="0.0">
+                                        <TableView fx:id="availableMovies_tableView" layoutX="272.0" onMouseClicked="#selectAvailableMovies" prefHeight="213.0" prefWidth="599.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                                 <TableColumn fx:id="availableMovies_col_movieTitle" prefWidth="181.0" text="Movie Title" />
                                                 <TableColumn fx:id="availableMovies_col_genre" prefWidth="204.0" text="Genre" />
-                                                <TableColumn fx:id="availableMovies_col_date" prefWidth="213.0" text="Date Showing" />
+                                                <TableColumn fx:id="availableMovies_col_showingDate" prefWidth="213.0" text="Date Showing" />
                                             </columns>
                                         </TableView>
                                     </children>
@@ -322,8 +322,8 @@
                                                 <Font name="Microsoft Sans Serif" size="17.0" />
                                             </font>
                                         </Label>
-                                        <Spinner fx:id="availableMovies_specialClass_quantity" layoutX="455.0" layoutY="109.0" prefHeight="25.0" prefWidth="70.0" stylesheets="@designDashboard.css" />
-                                        <Spinner fx:id="availableMovies_normalClass_quantity" layoutX="455.0" layoutY="149.0" prefHeight="25.0" prefWidth="70.0" stylesheets="@designDashboard.css" />
+                                        <Spinner fx:id="availableMovies_specialClass_quantity" layoutX="455.0" layoutY="109.0" onMouseClicked="#getSpinnerValue" prefHeight="25.0" prefWidth="70.0" stylesheets="@designDashboard.css" />
+                                        <Spinner fx:id="availableMovies_normalClass_quantity" layoutX="455.0" layoutY="149.0" onMouseClicked="#getSpinnerValue" prefHeight="25.0" prefWidth="70.0" stylesheets="@designDashboard.css" />
                                         <Label fx:id="availableMovies_specialClass_price" layoutX="573.0" layoutY="109.0" text="\$0.0">
                                             <font>
                                                 <Font size="16.0" />
@@ -344,9 +344,9 @@
                                                 <Font name="Microsoft Sans Serif" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Button fx:id="availableMovies_buyBtn" layoutX="701.0" layoutY="233.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="78.0" styleClass="buy-btn" stylesheets="@designDashboard.css" text="Buy" />
+                                        <Button fx:id="availableMovies_buyBtn" layoutX="701.0" layoutY="233.0" mnemonicParsing="false" onAction="#buy" prefHeight="33.0" prefWidth="78.0" styleClass="buy-btn" stylesheets="@designDashboard.css" text="Buy" />
                                         <Button fx:id="availableMovies_receiptBtn" layoutX="573.0" layoutY="233.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="78.0" styleClass="receipt-btn" stylesheets="@designDashboard.css" text="Receipt" />
-                                        <Button fx:id="availableMovies_clearBtn" layoutX="334.0" layoutY="233.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="78.0" styleClass="clear-btn" stylesheets="@designDashboard.css" text="Clear" />
+                                        <Button fx:id="availableMovies_clearBtn" layoutX="334.0" layoutY="233.0" mnemonicParsing="false" onAction="#clearPurchaseTicketInfo" prefHeight="33.0" prefWidth="78.0" styleClass="clear-btn" stylesheets="@designDashboard.css" text="Clear" />
                                     </children>
                                 </AnchorPane>
                             </children>
