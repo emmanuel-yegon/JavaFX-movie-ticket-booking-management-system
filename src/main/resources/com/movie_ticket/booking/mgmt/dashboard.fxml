@@ -345,7 +345,7 @@
                                             </font>
                                         </Label>
                                         <Button fx:id="availableMovies_buyBtn" layoutX="701.0" layoutY="233.0" mnemonicParsing="false" onAction="#buy" prefHeight="33.0" prefWidth="78.0" styleClass="buy-btn" stylesheets="@designDashboard.css" text="Buy" />
-                                        <Button fx:id="availableMovies_receiptBtn" layoutX="573.0" layoutY="233.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="78.0" styleClass="receipt-btn" stylesheets="@designDashboard.css" text="Receipt" />
+                                        <Button fx:id="availableMovies_receiptBtn" layoutX="573.0" layoutY="233.0" mnemonicParsing="false" onAction="#receipt" prefHeight="33.0" prefWidth="78.0" styleClass="receipt-btn" stylesheets="@designDashboard.css" text="Receipt" />
                                         <Button fx:id="availableMovies_clearBtn" layoutX="334.0" layoutY="233.0" mnemonicParsing="false" onAction="#clearPurchaseTicketInfo" prefHeight="33.0" prefWidth="78.0" styleClass="clear-btn" stylesheets="@designDashboard.css" text="Clear" />
                                     </children>
                                 </AnchorPane>

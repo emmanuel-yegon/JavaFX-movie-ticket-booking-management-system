@@ -19,6 +19,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.File;
 import java.net.URL;
@@ -280,9 +287,42 @@ public class DashboardController implements Initializable {
     private int qty1 = 0;
     private int qty2 = 0;
 
+    public void receipt() {
+
+        if (total > 0) {
+
+            HashMap hash = new HashMap();
+            hash.put("receipt", num);
+
+            try {
+                JasperDesign jDesign = JRXmlLoader.load("C:\\Users\\EMMANUEL-YEGON\\Documents\\NetBeansProjects\\Movie Ticket Booking Mgmt\\src\\movie\\ticket\\booking\\mgmt\\report.jrxml");
+                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+                JasperPrint jPrint = JasperFillManager.fillReport(jReport, hash, connect);
+
+                JasperViewer.viewReport(jPrint, false);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid.");
+            alert.showAndWait();
+
+        }
+
+
+    }
+
+    private int num;
+    private  int qty;
+
     public void buy() {
 
-        String sql = "INSERT INTO customer (type,total,date) VALUES(?,?,?)";
+        String sql = "INSERT INTO customer (type,quantity,total,date) VALUES(?,?,?,?)";
 
         connect = MovieDb.connectDb();
         String type = "";
@@ -300,10 +340,13 @@ public class DashboardController implements Initializable {
 
         try {
 
+            qty = qty1 + qty2;
+
             prepare = connect.prepareStatement(sql);
             prepare.setString(1, type);
-            prepare.setString(2, String.valueOf(total));
-            prepare.setString(3, String.valueOf(setDate));
+            prepare.setString(2,String.valueOf(qty));
+            prepare.setString(3, String.valueOf(total));
+            prepare.setString(4, String.valueOf(setDate));
 
             Alert alert;
 
@@ -339,19 +382,20 @@ public class DashboardController implements Initializable {
                 prepare = connect.prepareStatement(sql1);
                 rs = prepare.executeQuery();
 
-                int num = 0;
+                num = 0;
 
                 while (rs.next()) {
                     num = rs.getInt("id");
                 }
 
-                String sql2 = "INSERT INTO customer_info (customer_id,type,total,movieTitle) VALUES(?,?,?,?)";
+                String sql2 = "INSERT INTO customer_info (customer_id,type,total,movieTitle,quantity) VALUES(?,?,?,?,?)";
 
                 prepare = connect.prepareStatement(sql2);
                 prepare.setString(1, String.valueOf(num));
                 prepare.setString(2, type);
                 prepare.setString(3, String.valueOf(total));
-                prepare.setString(4,availableMovies_title.getText());
+                prepare.setString(4, availableMovies_title.getText());
+                prepare.setString(5,String.valueOf(qty));
 
                 prepare.execute();
 
@@ -365,10 +409,10 @@ public class DashboardController implements Initializable {
 
     }
 
-    public  void  clearPurchaseTicketInfo(){
+    public void clearPurchaseTicketInfo() {
 
-        spinner1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10,0);
-        spinner2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10,0);
+        spinner1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0);
+        spinner2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0);
 
         availableMovies_specialClass_quantity.setValueFactory(spinner1);
         availableMovies_normalClass_quantity.setValueFactory(spinner2);
@@ -379,9 +423,10 @@ public class DashboardController implements Initializable {
 
         availableMovies_imageView.setImage(null);
         availableMovies_title.setText("");
-        
+
 
     }
+
     public void showSpinnerValue() {
         spinner1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0);
         spinner2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0);
@@ -773,7 +818,7 @@ public class DashboardController implements Initializable {
                     alert.showAndWait();
                 } else {
 
-                    String sql = "INSERT INTO movie(movieTitle,genre,duration,image,date) VALUES(?,?,?,?,?)";
+                    String sql = "INSERT INTO movie(movieTitle,genre,duration,image,date,current) VALUES(?,?,?,?,?,?)";
 
                     String uri = GetData.path;
                     uri = uri.replace("\\", "\\\\");
@@ -785,7 +830,8 @@ public class DashboardController implements Initializable {
                     prepare.setString(3, addMovies_duration.getText());
                     prepare.setString(4, uri);
                     prepare.setString(5, String.valueOf(addMovies_date.getValue()));
-
+                    prepare.setString(6,"Showing");
+                    
                     prepare.execute();
 
                     alert = new Alert(Alert.AlertType.INFORMATION);

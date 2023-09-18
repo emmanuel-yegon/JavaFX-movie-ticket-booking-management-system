@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="226" pageHeight="425" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb178a18-6c35-41f2-a57a-4bb029afa691">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="163"/>
+	<parameter name="receipt" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select customer_info.id,customer_info.customer_id,customer_info.type,
+customer_info.total,customer_info.movieTitle,customer_info.quantity, customer.id,customer.type,customer.quantity,customer.total,customer.date from customer_info INNER JOIN customer ON customer_info.customer_id = customer.id WHERE customer.id = $P{receipt}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="customer_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="movieTitle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="customer info">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement x="48" y="14" width="70" height="20" uuid="872d1d11-52cc-4cb8-9ff8-cde4ab6abc41"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[Total Payment: $]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="118" y="14" width="33" height="20" uuid="7a061ef4-972d-4072-8d97-bcd69c75af85"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="37" width="106" height="35" uuid="7201efb4-4dcc-498d-859a-15e3dc9c5613"/>
+				<textElement>
+					<font fontName="Arial" size="30"/>
+				</textElement>
+				<text><![CDATA[inema]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="24" width="113" height="59" forecolor="#CC0033" uuid="c620dc9a-331f-4a05-b112-232b5a057f37"/>
+				<textElement>
+					<font fontName="Vladimir Script" size="48"/>
+				</textElement>
+				<text><![CDATA[C]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="4" width="55" height="20" uuid="d3a5498d-49ba-423e-a762-7c6d01b75b9c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="99" y="4" width="32" height="20" uuid="1923a0d7-c75c-4aad-a6fd-af1a485c2935"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ticket #:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="96" width="186" height="1" uuid="57944dd2-fa25-4009-93e1-161c06eab95b"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="9" width="36" height="13" uuid="8f7d636f-ac91-4cca-aa0b-2122b6009740"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="9" width="51" height="13" uuid="8c80be9f-8ceb-437e-865d-ce87281d1fd7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Movie Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="9" width="36" height="13" uuid="9101843d-550e-49ab-9cc9-2c10dc24e37e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total ($)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="27" width="186" height="1" uuid="ef860f3a-412f-466f-9b25-522ebd6441c3"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="103" y="9" width="32" height="13" uuid="b318777a-6343-4f7b-a7bc-115a815a477c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement x="150" y="6" width="36" height="20" uuid="48360c47-2ed5-4b85-90c9-5d3fc5c5c3b2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="6" width="51" height="20" uuid="d1bc5d61-28ce-44cd-a2f1-c0c6fa5175e8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{movieTitle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="6" width="36" height="20" uuid="ecf5d283-d761-46eb-8a67-18d79e03e605"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="25" width="186" height="1" uuid="87b41206-2ed1-44a8-bbf8-da174c44e41d"/>
+			</line>
+			<textField>
+				<reportElement x="103" y="6" width="36" height="20" uuid="ca60a7fe-2d35-4b61-8d11-2325f7bece0f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="99" y="34" width="87" height="20" uuid="716bf60b-e99f-4476-9132-6dbaba3a98a0"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
