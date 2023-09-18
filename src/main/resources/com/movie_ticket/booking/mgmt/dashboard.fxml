@@ -228,7 +228,7 @@
                                 </AnchorPane>
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="availableMovies_form" layoutX="62.0" layoutY="45.0" prefHeight="553.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="availableMovies_form" layoutX="62.0" layoutY="45.0" prefHeight="553.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="213.0" prefWidth="879.0" styleClass="bg-white" stylesheets="@designDashboard.css">
                                     <children>
@@ -395,58 +395,51 @@
                            </children></AnchorPane>
                             </children>
                         </AnchorPane>
-                  <AnchorPane fx:id="customers_form" layoutX="-8.0" prefHeight="553.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="customers_form" layoutX="-8.0" prefHeight="553.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="527.0" prefWidth="289.0" styleClass="bg-white" stylesheets="@designDashboard.css" AnchorPane.leftAnchor="14.0">
                            <children>
-                              <AnchorPane layoutX="8.0" layoutY="14.0" prefHeight="228.0" prefWidth="273.0" styleClass="card-customer" stylesheets="@designDashboard.css" AnchorPane.topAnchor="4.0">
+                              <AnchorPane layoutX="8.0" layoutY="14.0" prefHeight="198.0" prefWidth="273.0" styleClass="card-customer" stylesheets="@designDashboard.css" AnchorPane.topAnchor="4.0">
                                  <children>
                                     <Label layoutX="45.0" layoutY="28.0" text="Ticket #:" AnchorPane.leftAnchor="42.0">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="customers_ticketNumber" layoutX="98.0" layoutY="21.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" text="Movie Ticket:" />
+                                    <Label fx:id="customers_ticketNumber" layoutX="98.0" layoutY="21.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" />
                                     <Label layoutX="23.0" layoutY="66.0" text="Movie Title:" AnchorPane.leftAnchor="25.0">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="customers_movieTitle" layoutX="98.0" layoutY="63.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" text="Movie Ticket:" AnchorPane.topAnchor="58.0" />
-                                    <Label layoutX="55.0" layoutY="105.0" text="Genre:" AnchorPane.leftAnchor="55.0">
+                                    <Label fx:id="customers_movieTitle" layoutX="98.0" layoutY="63.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" AnchorPane.topAnchor="58.0" />
+                                    <Label layoutX="9.0" layoutY="104.0" text="Date Checked:" AnchorPane.leftAnchor="9.0">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="customers_genre" layoutX="98.0" layoutY="97.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" text="Movie Ticket:" AnchorPane.topAnchor="97.0" />
-                                    <Label layoutX="13.0" layoutY="143.0" text="Date Checked:" AnchorPane.leftAnchor="9.0">
+                                    <Label fx:id="customers_date" layoutX="97.0" layoutY="97.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" AnchorPane.topAnchor="97.0" />
+                                    <Label layoutX="9.0" layoutY="142.0" text="Time Checked:" AnchorPane.leftAnchor="9.0">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="customers_date" layoutX="98.0" layoutY="135.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" text="Movie Ticket:" AnchorPane.topAnchor="135.0" />
-                                    <Label layoutX="12.0" layoutY="181.0" text="Time Checked:" AnchorPane.leftAnchor="9.0">
-                                       <font>
-                                          <Font size="13.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="customers_time" layoutX="98.0" layoutY="173.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" text="Movie Ticket:" AnchorPane.topAnchor="173.0" />
+                                    <Label fx:id="customers_time" layoutX="97.0" layoutY="135.0" prefHeight="32.0" prefWidth="167.0" styleClass="label-info" stylesheets="@designDashboard.css" AnchorPane.topAnchor="135.0" />
                                  </children></AnchorPane>
-                              <Button fx:id="customers_clearBtn" layoutX="14.0" layoutY="290.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" styleClass="clear-btn" stylesheets="@designDashboard.css" text="Clear" />
-                              <Button fx:id="customers_deleteBtn" layoutX="184.0" layoutY="290.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" styleClass="delete-btn" stylesheets="@designDashboard.css" text="Delete" />
+                              <Button fx:id="customers_clearBtn" layoutX="14.0" layoutY="290.0" mnemonicParsing="false" onAction="#clearCustomer" prefHeight="42.0" prefWidth="91.0" styleClass="clear-btn" stylesheets="@designDashboard.css" text="Clear" />
+                              <Button fx:id="customers_deleteBtn" layoutX="184.0" layoutY="290.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="42.0" prefWidth="91.0" styleClass="delete-btn" stylesheets="@designDashboard.css" text="Delete" />
                            </children></AnchorPane>
                         <AnchorPane layoutX="318.0" layoutY="14.0" prefHeight="527.0" prefWidth="570.0" styleClass="bg-white" stylesheets="@designDashboard.css">
                            <children>
-                              <TableView fx:id="customers_tableView" layoutX="10.0" layoutY="53.0" prefHeight="468.0" prefWidth="550.0">
+                              <TableView fx:id="customers_tableView" layoutX="10.0" layoutY="53.0" onMouseClicked="#selectCustomerList" prefHeight="468.0" prefWidth="550.0">
                                 <columns>
-                                  <TableColumn fx:id="customers_col_ticketNumber" prefWidth="96.0" text="Ticket Number" />
-                                  <TableColumn fx:id="customers_col_movieTitle" prefWidth="115.0" text="Movie Title" />
-                                    <TableColumn fx:id="customers_col_genre" minWidth="0.0" prefWidth="101.0" text="Genre" />
-                                    <TableColumn fx:id="customers_col_date" prefWidth="124.0" text="Date Checked" />
-                                    <TableColumn fx:id="customers_col_time" prefWidth="112.0" text="Time Checked" />
+                                  <TableColumn fx:id="customers_col_ticketNumber" prefWidth="115.0" text="Ticket Number" />
+                                  <TableColumn fx:id="customers_col_movieTitle" prefWidth="141.0" text="Movie Title" />
+                                    <TableColumn fx:id="customers_col_date" prefWidth="138.0" text="Date Checked" />
+                                    <TableColumn fx:id="customers_col_time" prefWidth="155.0" text="Time Checked" />
                                 </columns>
                               </TableView>
-                              <TextField fx:id="customers_search" layoutX="10.0" layoutY="14.0" prefHeight="25.0" prefWidth="240.0" promptText="Search" styleClass="search" stylesheets="@designDashboard.css" />
+                              <TextField fx:id="customers_search" layoutX="10.0" layoutY="14.0" onKeyTyped="#searchCustomer" prefHeight="25.0" prefWidth="240.0" promptText="Search" styleClass="search" stylesheets="@designDashboard.css" />
                               <FontIcon fill="#686868" iconLiteral="fa-search" iconSize="20" layoutX="14.0" layoutY="33.0" />
                            </children></AnchorPane>
                      </children>

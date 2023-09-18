@@ -29,10 +29,9 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.File;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.*;
 
 public class DashboardController implements Initializable {
@@ -164,19 +163,16 @@ public class DashboardController implements Initializable {
     private Button customers_clearBtn;
 
     @FXML
-    private TableColumn<?, ?> customers_col_date;
+    private TableColumn<CustomerData, String> customers_col_date;
 
     @FXML
-    private TableColumn<?, ?> customers_col_genre;
+    private TableColumn<CustomerData, String> customers_col_movieTitle;
 
     @FXML
-    private TableColumn<?, ?> customers_col_movieTitle;
+    private TableColumn<CustomerData, String> customers_col_ticketNumber;
 
     @FXML
-    private TableColumn<?, ?> customers_col_ticketNumber;
-
-    @FXML
-    private TableColumn<?, ?> customers_col_time;
+    private TableColumn<CustomerData, String> customers_col_time;
 
     @FXML
     private Label customers_date;
@@ -197,7 +193,7 @@ public class DashboardController implements Initializable {
     private TextField customers_search;
 
     @FXML
-    private TableView<?> customers_tableView;
+    private TableView<CustomerData> customers_tableView;
 
     @FXML
     private Label customers_ticketNumber;
@@ -287,6 +283,165 @@ public class DashboardController implements Initializable {
     private int qty1 = 0;
     private int qty2 = 0;
 
+    public void searchCustomer() {
+
+        FilteredList<CustomerData> filter = new FilteredList<>(custList, e -> true);
+
+        customers_search.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            filter.setPredicate(predicateCustomer -> {
+
+                if (newValue.isEmpty() || newValue == null) {
+                    return true;
+                }
+
+                String searchKey = newValue.toLowerCase();
+                if (predicateCustomer.getId().toString().contains(searchKey)) {
+                    return true;
+                } else if (predicateCustomer.getMovieTitle().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateCustomer.getDate().toString().contains(searchKey)) {
+                    return true;
+                }else {
+                    return false;
+                }
+            });
+        });
+
+        SortedList<CustomerData> sort = new SortedList<>(filter);
+
+        sort.comparatorProperty().bind(customers_tableView.comparatorProperty());
+        customers_tableView.setItems(sort);
+    }
+
+    public ObservableList<CustomerData> customerList() {
+
+        ObservableList<CustomerData> customerL = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM customer";
+
+        connect = MovieDb.connectDb();
+
+        try {
+
+            CustomerData customerD;
+
+            prepare = connect.prepareStatement(sql);
+            rs = prepare.executeQuery();
+
+            while (rs.next()) {
+
+                customerD = new CustomerData(rs.getInt("id")
+                        , rs.getString("type")
+                        , rs.getString("movieTitle")
+                        , rs.getInt("quantity")
+                        , rs.getDouble("total")
+                        , rs.getDate("date")
+                        , rs.getTime("time"));
+
+                customerL.add(customerD);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return customerL;
+    }
+
+    private ObservableList<CustomerData> custList;
+
+    public void showCustomerList() {
+
+        custList = customerList();
+
+        customers_col_ticketNumber.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customers_col_movieTitle.setCellValueFactory(new PropertyValueFactory<>("movieTitle"));
+        customers_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        customers_col_time.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        customers_tableView.setItems(custList);
+    }
+
+    public void selectCustomerList() {
+
+        CustomerData custD = customers_tableView.getSelectionModel().getSelectedItem();
+        int num = customers_tableView.getSelectionModel().getSelectedIndex();
+
+        if ((num - 1) < -1) {
+            return;
+        }
+
+        customers_ticketNumber.setText(String.valueOf(custD.getId()));
+        customers_movieTitle.setText(custD.getMovieTitle());
+        customers_date.setText(String.valueOf(custD.getDate()));
+        customers_time.setText(String.valueOf(custD.getTime()));
+
+    }
+
+    public void deleteCustomer() {
+
+        String sql = "DELETE FROM customer WHERE id='" + customers_ticketNumber.getText() + "'";
+
+        connect = MovieDb.connectDb();
+
+        try {
+
+            Alert alert;
+
+            statement = connect.createStatement();
+
+            if (customers_ticketNumber.getText().isEmpty()
+                    || customers_movieTitle.getText().isEmpty()
+                    || customers_date.getText().isEmpty()
+                    || customers_time.getText().isEmpty()) {
+
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select the customer first!");
+                alert.showAndWait();
+
+            } else {
+
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to delete: " + customers_movieTitle.getText() + "?");
+
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get() == ButtonType.OK) {
+
+                    statement.executeUpdate(sql);
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully deleted!");
+
+                    clearCustomer();
+                    showCustomerList();
+
+                } else {
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clearCustomer() {
+
+        customers_ticketNumber.setText("");
+        customers_movieTitle.setText("");
+        customers_date.setText("");
+        customers_time.setText("");
+
+    }
+
     public void receipt() {
 
         if (total > 0) {
@@ -304,7 +459,7 @@ public class DashboardController implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
@@ -318,11 +473,11 @@ public class DashboardController implements Initializable {
     }
 
     private int num;
-    private  int qty;
+    private int qty;
 
     public void buy() {
 
-        String sql = "INSERT INTO customer (type,quantity,total,date) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO customer (type,movieTitle,quantity,total,date,time) VALUES(?,?,?,?,?,?)";
 
         connect = MovieDb.connectDb();
         String type = "";
@@ -340,13 +495,18 @@ public class DashboardController implements Initializable {
 
         try {
 
+            LocalTime localTime = LocalTime.now();
+            Time time = Time.valueOf(localTime);
+
             qty = qty1 + qty2;
 
             prepare = connect.prepareStatement(sql);
             prepare.setString(1, type);
-            prepare.setString(2,String.valueOf(qty));
-            prepare.setString(3, String.valueOf(total));
-            prepare.setString(4, String.valueOf(setDate));
+            prepare.setString(2, availableMovies_title.getText());
+            prepare.setString(3, String.valueOf(qty));
+            prepare.setString(4, String.valueOf(total));
+            prepare.setString(5, String.valueOf(setDate));
+            prepare.setString(6, String.valueOf(time));
 
             Alert alert;
 
@@ -395,7 +555,7 @@ public class DashboardController implements Initializable {
                 prepare.setString(2, type);
                 prepare.setString(3, String.valueOf(total));
                 prepare.setString(4, availableMovies_title.getText());
-                prepare.setString(5,String.valueOf(qty));
+                prepare.setString(5, String.valueOf(qty));
 
                 prepare.execute();
 
@@ -830,8 +990,8 @@ public class DashboardController implements Initializable {
                     prepare.setString(3, addMovies_duration.getText());
                     prepare.setString(4, uri);
                     prepare.setString(5, String.valueOf(addMovies_date.getValue()));
-                    prepare.setString(6,"Showing");
-                    
+                    prepare.setString(6, "Showing");
+
                     prepare.execute();
 
                     alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1152,6 +1312,7 @@ public class DashboardController implements Initializable {
             availableMovies_btn.setStyle("-fx-background-color:transparent");
             editScreening_btn.setStyle("-fx-background-color:transparent");
 
+            showCustomerList();
         }
 
     }
@@ -1183,5 +1344,6 @@ public class DashboardController implements Initializable {
 
         showSpinnerValue();
 
+        showCustomerList();
     }
 }
